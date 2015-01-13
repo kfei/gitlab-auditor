@@ -1,5 +1,7 @@
 {
   "name": "gitlab-auditor",
+  "version": "1.0.0",
+  "description": "Auditing users' push/fetch events on GitLab",
   "devDependencies": {
     "dateformat": ">=0",
     "gulp": ">=0",

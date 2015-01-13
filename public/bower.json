@@ -1,6 +1,7 @@
 {
   "name": "gitlab-auditor",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Auditing users' push/fetch events on GitLab",
   "dependencies": {
     "angular": "*",
     "angular-material": "*",
