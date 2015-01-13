@@ -8,8 +8,8 @@ Auditing users' push/fetch events on GitLab.
 
 ## Installation
 
-**Option 1**: Just download the [released tar
-ball](https://github.com/kfei/gitlab-auditor/releases) from GitHub:
+**Option 1**: Download the [released tar
+ball](https://github.com/kfei/gitlab-auditor/releases) from GitHub then run:
 
 ```bash
 mkdir -p gitlab-auditor
@@ -33,15 +33,15 @@ log file, run `./gitlab-auditor -f <file>` instead.
 
 ## Apply patches to GitLab services
 
-To have **gitlab-shell** logging users' ID, we have to patch GitLab, both the
+To have *gitlab-shell* logging users' ID, we have to patch GitLab, both the
 Rails application and the SSH shell parts.
 
-**Step 1**: (Patch)[docs/gitlab-rails.diff?raw=true] GitLab, so that the
+**Step 1**: [Patch](docs/gitlab-rails.diff?raw=true) GitLab, so that the
 internal *discover* API can expose users' ID.
 
 Then run `gitlab-ctl restart` to restart GitLab services.
 
-**Step 2**: (Patch)[docs/gitlab-shell.diff?raw=true] *gitlab-shell* so that it
+**Step 2**: [Patch](docs/gitlab-shell.diff?raw=true) *gitlab-shell* so that it
 can log users' ID and IP.
 
 ## Usage
