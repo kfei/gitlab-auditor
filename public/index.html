@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-TW" ng-app="gitlabAuditor">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gitlab-auditor</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
+    <!-- build:css index/main.min.css -->
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+    <!-- endbuild -->
+    <!-- build:js index/main.min.js -->
+    <script src="vendor/hammerjs/hammer.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-aria/angular-aria.js"></script>
+    <script src="vendor/angular-material/angular-material.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="vendor/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="vendor/angular-translate/angular-translate.js"></script>
+    <script src="config/app.js"></script>
+    <script src="config/route.js"></script>
+    <script src="config/locale.js"></script>
+    <script src="services/loading.js"></script>
+    <script src="services/config.js"></script>
+    <script src="services/gitlab.js"></script>
+    <script src="services/backend.js"></script>
+    <script src="controllers/config.js"></script>
+    <script src="controllers/lang.js"></script>
+    <script src="controllers/index.js"></script>
+    <script src="controllers/user.js"></script>
+    <script src="controllers/repo.js"></script>
+    <!--
+    <script src="index/angular-template.tmp.js"></script>
+    -->
+    <!-- endbuild -->
+  </head>
+  <body ng-controller="IndexCtrl" layout="row" layout-padding layout-align="space-around">
+    <div flex="15" layout="column" layout-padding class="md-whiteframe-z1">
+      <md-content flex>
+        <div layout="column" layout-align="center center">
+          <div layout="column" layout-align="center center" style="height: 64px;">
+            <md-button flex ng-show="!loading.isLoadingAny()" ui-sref="index" style="font-style: italic;">GitLab Auditor</md-button>
+            <md-progress-circular flex ng-show="loading.isLoadingAny()" layout-padding md-mode="indeterminate"></md-progress-circular>
+          </div>
+          <md-button class="md-raised md-primary fa fa-user" style="margin-top: 18px;" ui-sref="user.list"> <span translate>User Audit</span></md-button>
+          <md-button class="md-raised md-primary fa fa-git-square" style="margin-top: 18px;" ui-sref="repo.list"> <span translate>Repo Audit</span></md-button>
+        </div>
+      </md-content>
+      <div class="md-whiteframe-z1" layout-margin layout="column" style="background: #F8F8F8;">
+        <div layout="row">
+          <md-button flex class="fa fa-gear" ui-sref="config"> <span translate>Config</span></md-button>
+        </div>
+        <div layout="row">
+          <md-button flex class="fa fa-language" ng-click="showLangBottomSheet($event)"> <span translate>Language</span></md-button>
+        </div>
+      </div>
+    </div>
+    <div ui-view flex>
+    </div>
+  </body>
+</html>

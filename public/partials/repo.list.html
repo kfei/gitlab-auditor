@@ -1,0 +1,51 @@
+<div flex="33" layout-padding>
+  <div flex layout-margin layout-padding class="md-whiteframe-z1" style="height: 80vh; overflow-y: auto;">
+    <md-content>
+      <md-list>
+        <md-item ng-repeat="repo in repos">
+          <md-item-content>
+            <div class="md-tile-left" style="margin-right: 10px;">
+              <img ng-src="{{ repo.namespace.avatar.url }}"
+                    style="max-width:48px; max-height:48px;"
+                    class="face" alt="{{ repo.name }}">
+            </div>
+            <md-button flex ng-click="listRepoLogs(repo.path_with_namespace)" layout-align="left center">
+              <div flex="25" class="md-tile-content">
+                <h3>{{ repo.name }}</h3>
+                <p>{{ repo.namespace.name }}</p>
+              </div>
+            </md-button>
+          </md-item-content>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+      </md-list>
+    </md-content>
+  </div>
+</div>
+
+<div flex layout-padding>
+  <div flex>
+    <md-content>
+      <div flex ng-show="!!logid" layout="row" layout-margin layout-padding
+        class="md-whiteframe-z1" style="height: 80vh; overflow-y: auto; background: #FDFDFD; color: #888888; font-family: monospace">
+        <div ng-show="!logs[0]" layout-margin layout-align="center center">No data.</div>
+        <table ng-show="!!logs[0]" style="min-width: 100%; text-align: left;">
+          <tbody>
+            <tr>
+              <th>Timestamp</th>
+              <th>IP Address</th>
+              <th>Action</th>
+              <th>Username</th>
+            </tr>
+            <tr ng-repeat="log in logs">
+              <td>{{ log.timestamp }}</td>
+              <td>{{ log.userip }}</td>
+              <td>{{ log.action }}</td>
+              <td>{{ log.info }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </md-content>
+  </div>
+</div>

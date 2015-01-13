@@ -1,0 +1,12 @@
+diff -Nru ori/lib/api/entities.rb new/lib/api/entities.rb
+--- ori/lib/api/entities.rb	2015-01-08 08:11:48.000000000 +0000
++++ new/lib/api/entities.rb	2015-01-12 18:57:18.498405000 +0000
+@@ -1,7 +1,7 @@
+ module API
+   module Entities
+     class UserSafe < Grape::Entity
+-      expose :name, :username
++      expose :id, :name, :username
+     end
+ 
+     class UserBasic < UserSafe

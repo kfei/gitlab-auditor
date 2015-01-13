@@ -1,0 +1,26 @@
+diff -Nru ori/gitlab_shell.rb new/gitlab_shell.rb
+--- ori/gitlab_shell.rb	2015-01-12 19:12:27.218405000 +0000
++++ new/gitlab_shell.rb	2015-01-12 19:06:17.690405000 +0000
+@@ -10,6 +10,7 @@
+   def initialize
+     @key_id = /key-[0-9]+/.match(ARGV.join).to_s
+     @origin_cmd = ENV['SSH_ORIGINAL_COMMAND']
++    @userip = ENV['SSH_CONNECTION'].split(" ")[0]
+     @config = GitlabConfig.new
+     @repos_path = @config.repos_path
+   end
+@@ -85,9 +86,13 @@
+     user && user['name'] || 'Anonymous'
+   end
+ 
++  def userid
++    user && user['id'] || 'Anonymous'
++  end
++
+   # User identifier to be used in log messages.
+   def log_username
+-    @config.audit_usernames ? username : "user with key #{@key_id}"
++    "user-#{userid} (#{username}) with key #{@key_id} from #{@userip}"
+   end
+ 
+   def escape_path(path)

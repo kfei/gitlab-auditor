@@ -1,0 +1,77 @@
+diff -Nru ori/app/controllers/projects/repositories_controller.rb new/app/controllers/projects/repositories_controller.rb
+--- ori/app/controllers/projects/repositories_controller.rb	2015-01-08 08:11:48.000000000 +0000
++++ new/app/controllers/projects/repositories_controller.rb	2015-01-12 18:59:48.834405000 +0000
+@@ -11,9 +11,9 @@
+   end
+ 
+   def archive
+-    unless can?(current_user, :download_code, @project)
+-      render_404 and return
+-    end
++    # unless can?(current_user, :download_code, @project)
++    render_404 and return
++    # end
+ 
+     file_path = ArchiveRepositoryService.new.execute(@project, params[:ref], params[:format])
+ 
+diff -Nru ori/app/views/projects/repositories/_download_archive.html.haml new/app/views/projects/repositories/_download_archive.html.haml
+--- ori/app/views/projects/repositories/_download_archive.html.haml	2015-01-08 08:11:48.000000000 +0000
++++ new/app/views/projects/repositories/_download_archive.html.haml	2015-01-12 19:03:16.218405000 +0000
+@@ -3,10 +3,10 @@
+ - split_button = split_button || false
+ - if split_button == true
+   %span.btn-group{class: btn_class}
+-    = link_to archive_project_repository_path(@project, ref: ref, format: 'zip'), class: 'btn', rel: 'nofollow' do
++    = link_to archive_project_repository_path(@project, ref: ref, format: 'zip'), class: 'btn disabled', rel: 'nofollow' do
+       %i.fa.fa-download
+       %span Download zip
+-    %a.btn.dropdown-toggle{ 'data-toggle' => 'dropdown' }
++    %a.btn.disabled.dropdown-toggle{ 'data-toggle' => 'dropdown' }
+       %span.caret
+       %span.sr-only
+         Select Archive Format
+@@ -29,9 +29,9 @@
+           %span Download tar
+ - else
+   %span.btn-group{class: btn_class}
+-    = link_to archive_project_repository_path(@project, ref: ref, format: 'zip'), class: 'btn', rel: 'nofollow' do
++    = link_to archive_project_repository_path(@project, ref: ref, format: 'zip'), class: 'btn disabled', rel: 'nofollow' do
+       %i.fa.fa-download
+       %span zip
+-    = link_to archive_project_repository_path(@project, ref: ref, format: 'tar.gz'), class: 'btn', rel: 'nofollow' do
++    = link_to archive_project_repository_path(@project, ref: ref, format: 'tar.gz'), class: 'btn disabled', rel: 'nofollow' do
+       %i.fa.fa-download
+       %span tar.gz
+diff -Nru ori/config/routes.rb new/config/routes.rb
+--- ori/config/routes.rb	2015-01-08 08:11:49.000000000 +0000
++++ new/config/routes.rb	2015-01-12 18:59:13.662405000 +0000
+@@ -21,12 +21,12 @@
+   end
+ 
+   # Enable Grack support
+-  mount Grack::Bundle.new({
+-    git_path:     Gitlab.config.git.bin_path,
+-    project_root: Gitlab.config.gitlab_shell.repos_path,
+-    upload_pack:  Gitlab.config.gitlab_shell.upload_pack,
+-    receive_pack: Gitlab.config.gitlab_shell.receive_pack
+-  }), at: '/', constraints: lambda { |request| /[-\/\w\.]+\.git\//.match(request.path_info) }, via: [:get, :post]
++  # mount Grack::Bundle.new({
++  #   git_path:     Gitlab.config.git.bin_path,
++  #   project_root: Gitlab.config.gitlab_shell.repos_path,
++  #   upload_pack:  Gitlab.config.gitlab_shell.upload_pack,
++  #   receive_pack: Gitlab.config.gitlab_shell.receive_pack
++  # }), at: '/', constraints: lambda { |request| /[-\/\w\.]+\.git\//.match(request.path_info) }, via: [:get, :post]
+ 
+   #
+   # Help
+diff -Nru ori/app/views/shared/_clone_panel.html.haml new/app/views/shared/_clone_panel.html.haml
+--- ori/app/views/shared/_clone_panel.html.haml 2015-01-08 08:11:48.000000000 +0000
++++ new/app/views/shared/_clone_panel.html.haml 2015-01-12 18:57:18.498405000 +0000
+@@ -2,7 +2,6 @@
+ .git-clone-holder.input-group
+   .input-group-btn
+     %button{class: "btn #{ 'active' if default_clone_protocol == 'ssh' }", :"data-clone" => project.ssh_url_to_repo} SSH
+-    %button{class: "btn #{ 'active' if default_clone_protocol == 'http' }", :"data-clone" => project.http_url_to_repo}= gitlab_config.protocol.upcase
+   = text_field_tag :project_clone, default_url_to_repo(project), class: "one_click_select form-control", readonly: true
+   - if project.kind_of?(Project)
+     .input-group-addon
