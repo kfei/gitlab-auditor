@@ -18,7 +18,7 @@ var (
 	logFile string
 
 	/*
-		The following regexes are only work with gitlab-shell's log format has
+		The following regexes are only work when gitlab-shell's log format has
 		customized like:
 
 			# User identifier to be used in log messages.
