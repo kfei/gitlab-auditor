@@ -33,7 +33,7 @@ var (
 	regexFetch    = regexp.MustCompile(`git-upload-pack`)
 	regexPush     = regexp.MustCompile(`git-receive-pack`)
 	regexRepo     = regexp.MustCompile(`/repositories/(.+)[\.git]{0,1}>`)
-	regexUserName = regexp.MustCompile(`\s\((\w+)\)\s`)
+	regexUserName = regexp.MustCompile(`\s\((.+)\)\s`)
 	regexUserIP   = regexp.MustCompile(`from\s([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\.`)
 )
 

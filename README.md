@@ -37,8 +37,8 @@ To have *gitlab-shell* logging more users' information, we have to patch
 GitLab, both the Rails application and the SSH shell parts.
 
 **Step 1**: [Patch](docs/gitlab-rails.diff?raw=true) GitLab, so that the
-internal *discover* API can expose users' ID. Then run `gitlab-ctl restart` to
-restart GitLab services.
+internal *discover* API exposes users' ID. Then restart GitLab rails
+application.
 
 **Step 2**: [Patch](docs/gitlab-shell.diff?raw=true) *gitlab-shell* so that it
 can log users' name, ID and IP.
