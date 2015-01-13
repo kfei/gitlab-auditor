@@ -7,7 +7,7 @@ app
     function gitlab() {}
 
     gitlab.prototype.imageUrl = function(path) {
-        return Config.gitlabUrl + path;
+        return Config.gitlabUrl.replace(/\/*$/, "") + path;
     };
 
     gitlab.prototype.callapi = function(method, path) {
